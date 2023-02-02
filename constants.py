@@ -6,3 +6,5 @@ TYPES = 5
 TRAIN_NUM = 1000
 TEST_NUM = 100
 
+CSV_PATH = './dataset/train.csv'
+
