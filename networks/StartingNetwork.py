@@ -4,15 +4,21 @@ import torch.nn.functional as F
 
 # https://github.com/uclaacmai/leaf-us-alone
 
+import itertools
 
 class StartingNetwork(nn.Module):
-  def __init__(self):
+  # Input Shape is a tuple of size 3 ex: (1, 224, 224)
+  def __init__(self, input_shape=(1,224,224)):
     # Call nn.Module's constructor--don't forget this
     super().__init__()
 
     # Define layers
+    # For our very simple model, we just flatten the inputs into a 1D tensor
+    size = list(itertools.accumulate(input_shape, lambda x, y: x * y))[-1]
+    print(size)
+
     self.flatten = nn.Flatten()
-    self.fc1 = nn.Linear(28 * 28, 256)
+    self.fc1 = nn.Linear(size, 256)
     self.fc2 = nn.Linear(256, 128)
     self.fc3 = nn.Linear(128, 10)
 
@@ -61,7 +67,7 @@ class ConvNet(torch.nn.Module):
 
         self.fc1 = nn.Linear(8 * 7 * 7, 256)
         self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 10)
+        self.fc3 = nn.Linear(128, 5)
 
         # Original Code Here
         # self.flatten = nn.Flatten()
@@ -78,10 +84,10 @@ class ConvNet(torch.nn.Module):
         # (n, 4, 28, 28)
         x = self.pool(x)
         # (n, 4, 14, 14)
-        x = self.conv2(x)
-        x = F.relu(x)
+        # x = self.conv2(x)
+        # x = F.relu(x)
         # (n, 8, 14, 14)
-        x = self.pool(x)
+        # x = self.pool(x)
         # (n, 8, 7, 7)
         x = torch.reshape(x, (-1, 8 * 7 * 7))
         # (n, 8 * 7 * 7)
@@ -95,7 +101,14 @@ class ConvNet(torch.nn.Module):
         # (n, 10)
         return x
 
+StartingNetwork = ConvNet
+if (__name__ == "__main__"):
+  print("Starting Network Debug...")
 
+  import torchsummary
+
+  new_network = StartingNetwork()
+  torchsummary.summary(new_network, (1, 224, 224))
 
 
 """
