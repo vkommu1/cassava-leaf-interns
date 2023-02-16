@@ -1,3 +1,10 @@
-EPOCHS = 100
+EPOCHS = 5
 BATCH_SIZE = 32
 N_EVAL = 100
+
+TYPES = 5
+TRAIN_NUM = 1000
+TEST_NUM = 100
+
+CSV_PATH = './dataset/train.csv'
+

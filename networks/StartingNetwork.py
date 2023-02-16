@@ -42,7 +42,7 @@ class StartingNetwork(nn.Module):
 
 class ConvNet(torch.nn.Module):
     """
-    Basic logistic regression on 224x224x3 images.
+    Basic logistic regression on 800x600x3 images.
     """
 
     def __init__(self):
