@@ -65,7 +65,7 @@ class ConvNet(torch.nn.Module):
         #   - Stride
         self.pool = nn.MaxPool2d(2, 2)
 
-        self.fc1 = nn.Linear(240000, 256)
+        self.fc1 = nn.Linear(480000, 256)
         self.fc2 = nn.Linear(256, 128)
         self.fc3 = nn.Linear(128, 5)
 
